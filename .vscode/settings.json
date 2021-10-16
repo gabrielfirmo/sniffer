@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "dns.h": "c",
+        "event_groups.h": "c",
+        "netdb.h": "c",
+        "err.h": "c"
+    }
+}
