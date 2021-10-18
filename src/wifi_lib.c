@@ -138,22 +138,6 @@ void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type)
             if (compare_mac(hdr, macs[i])){
                 access_control = 1;
                 idx = i;
-                printf("CHAN=%02d, RSSI=%02d,"
-		" ADDR1=%02x:%02x:%02x:%02x:%02x:%02x,"
-		" ADDR2=%02x:%02x:%02x:%02x:%02x:%02x,"
-		" ADDR3=%02x:%02x:%02x:%02x:%02x:%02x\n",
-		ppkt->rx_ctrl.channel,
-		ppkt->rx_ctrl.rssi,
-		/* ADDR1 */
-		hdr->addr1[0],hdr->addr1[1],hdr->addr1[2],
-		hdr->addr1[3],hdr->addr1[4],hdr->addr1[5],
-		/* ADDR2 */
-		hdr->addr2[0],hdr->addr2[1],hdr->addr2[2],
-		hdr->addr2[3],hdr->addr2[4],hdr->addr2[5],
-		/* ADDR3 */
-		hdr->addr3[0],hdr->addr3[1],hdr->addr3[2],
-		hdr->addr3[3],hdr->addr3[4],hdr->addr3[5]
-	);
                 return;
             }
         }

@@ -14,5 +14,6 @@ A placa utilizada foi a WiFi Kit 32 Heltec :
 - Fazer o clone deste repositório `git clone https://github.com/gabrielfirmo/sniffer.git `
 
 - Abrir a pasta do projeto no Visual Studio Code
+- Modificar os dados do Access Point no arquivo  *wifi_lib.h* para ter acesso a internet
 - Fazer o build do projeto, acessível pelo ícone do PlatfomIO na aba lateral
 - Após conectar a placa, fazer o upload 
