@@ -14,8 +14,8 @@
 #include "esp_wifi_types.h"
 
 //Dados de configuração do Access Point (AP) wifi
-#define AP_SSID      "VIVO-BD09"
-#define AP_PASS      "2F8A81BD09"
+#define AP_SSID      "TP-Link_396C"
+#define AP_PASS      "16711020"
 #define MAXIMUM_RETRY  3
 
 /* Eventos possíveis
