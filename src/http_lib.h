@@ -13,10 +13,10 @@
 #include "lwip/dns.h"
 
 /* Informações do servidor WEB */
-#define WEB_SERVER "sniffer-esp.herokuapp.com"
-#define WEB_PORT "80"
-#define WEB_PATH "/macs"
-#define WEB_PATH_POST "/logs/"
+#define WEB_SERVER "api.sniffer-esp.site"
+#define WEB_PORT "8080"
+#define WEB_PATH "/sniffer/macs"
+#define WEB_PATH_POST "/sniffer/logs/"
 
 void http_get_task();
 void http_post_task();
