@@ -92,7 +92,7 @@ void http_get_task()
             r = read(s, recv_buf, sizeof(recv_buf)-1);
             for(int i = 0; i < r; i++) {
                 char c = recv_buf[i];
-                putchar(c);
+                // putchar(c);
                 if(ready_mac){
                     macs[mac_counter-1][str_counter] = c;
                     if (str_counter<11){
@@ -158,7 +158,7 @@ void http_get_task()
 }
 
 void http_post_task(){
-    char mac[13] = "aaaaaaaaaaaa";
+    char mac[13] = "000000000000";
     for (uint8_t i = 0; i < 12; i++)
     {
         mac[i] = macs[idx][i];

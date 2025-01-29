@@ -13,8 +13,8 @@
 #include "lwip/dns.h"
 
 /* Informações do servidor WEB */
-#define WEB_SERVER "api.sniffer-esp.site"
-#define WEB_PORT "8080"
+#define WEB_SERVER "sniffer.sa-east-1.elasticbeanstalk.com"
+#define WEB_PORT "80"
 #define WEB_PATH "/sniffer/macs"
 #define WEB_PATH_POST "/sniffer/logs/"
 

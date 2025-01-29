@@ -132,6 +132,13 @@ void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type)
 	wifi_ieee80211_packet_t *ipkt = (wifi_ieee80211_packet_t *)ppkt->payload;
 	wifi_ieee80211_mac_hdr_t *hdr = &ipkt->hdr;
 
+    // uint8_t j;
+    //     for (j=0;j<mac_counter;j++){
+    //         if (compare_mac(hdr, macs[j])){
+    //             ESP_LOGI(TAG,"RSSI: %d", ppkt->rx_ctrl.rssi);
+    //         }
+    //     }
+
     if (ppkt->rx_ctrl.rssi>=-30){
         uint8_t i;
         for (i=0;i<mac_counter;i++){

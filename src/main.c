@@ -5,6 +5,7 @@
 
 
 #define LED_GPIO 25
+#define TEMPO_ACESSO 0.1 // Tempo de acesso liberado em minutos
 
 volatile uint8_t access_control = 0;
 volatile uint8_t db_carregado = 0, promiscuous_active=0;
@@ -14,7 +15,6 @@ volatile uint16_t mac_counter = 0;
 volatile char *macs[12];
 volatile char *nomes[16];
 volatile uint8_t idx = 0;
-
 
 void machine(void *pvParameters){
 
@@ -39,7 +39,7 @@ void machine(void *pvParameters){
             if (!promiscuous_active){
                 display_clear();
                 vTaskDelay(100/portTICK_PERIOD_MS);
-                display_text((void *)"\n\n\nAproxime o dis-\n\npositivo"); 
+                display_text((void *)"\n\n\nAproxime o dis-\n\npositivo       \n"); 
 
                 xTaskCreate(&sniffer_task, "sniffer_task", 4096, NULL, 5, &sniffer_handler);
                 promiscuous_active = 1;
@@ -66,8 +66,16 @@ void machine(void *pvParameters){
         
         case 3:
             http_post_task();
-            // Tempo de acesso liberado
-            vTaskDelay(10000/portTICK_PERIOD_MS);
+
+            //Contador de tempo da sessão
+            char seg[11] = "\n00:00";
+            for (uint16_t i=60*TEMPO_ACESSO; i>0;i--){
+                sprintf(seg, "\n%02d:%02d", i/60, i%60);
+                display_text((void *)seg);
+                vTaskDelay(1000/portTICK_PERIOD_MS);
+            }  
+
+            display_text((void *)"\n               ");                          
             access_control = 0;
             state = 2;
             break;
@@ -85,6 +93,8 @@ void app_main(void)
       ret = nvs_flash_init();
     }
     ESP_ERROR_CHECK(ret);
+
+
     /* Configura a porta GPIO como push/pull output */
     gpio_pad_select_gpio(LED_GPIO);
     gpio_set_direction(LED_GPIO, GPIO_MODE_OUTPUT);
