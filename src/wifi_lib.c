@@ -1,14 +1,12 @@
 #include "wifi_lib.h"
 
-extern volatile uint8_t access_control;
-extern volatile uint16_t mac_counter;
-extern volatile char *macs[12];
-extern volatile uint8_t idx;
+// const char mac_analysis[12] = {'2','8','c','2','1','f','e','a','4','2','4','d'};
+const char mac_analysis[13] = "28c21fea424d";
 
 //Informações sobre o país
 static wifi_country_t wifi_country = {.cc="BR", .schan=1, .nchan=13, .policy=WIFI_COUNTRY_POLICY_AUTO};
 
-static const char *TAG = "wifi station";
+static const char *TAG = "";
 
 /* FreeRTOS event group ativo quando está conectado*/
 static EventGroupHandle_t s_wifi_event_group;
@@ -132,23 +130,11 @@ void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type)
 	wifi_ieee80211_packet_t *ipkt = (wifi_ieee80211_packet_t *)ppkt->payload;
 	wifi_ieee80211_mac_hdr_t *hdr = &ipkt->hdr;
 
-    // uint8_t j;
-    //     for (j=0;j<mac_counter;j++){
-    //         if (compare_mac(hdr, macs[j])){
-    //             ESP_LOGI(TAG,"RSSI: %d", ppkt->rx_ctrl.rssi);
-    //         }
-    //     }
+    // if (hdr->addr2[0]==0x28 && hdr->addr2[1]==0xc2)
+    if (compare_mac(hdr, mac_analysis))
+        ESP_LOGI(TAG,"MAC:%x%x%x%x%x%x RSSI: %d", hdr->addr2[0],hdr->addr2[1],hdr->addr2[2],hdr->addr2[3],hdr->addr2[4],hdr->addr2[5],ppkt->rx_ctrl.rssi);
 
-    if (ppkt->rx_ctrl.rssi>=-30){
-        uint8_t i;
-        for (i=0;i<mac_counter;i++){
-            if (compare_mac(hdr, macs[i])){
-                access_control = 1;
-                idx = i;
-                return;
-            }
-        }
-    }
+
 }
 
 
@@ -168,9 +154,9 @@ void promiscuous_init(void)
 }
 
 void sniffer_task(void *pvParameters){
-    ESP_ERROR_CHECK(esp_wifi_disconnect());
-    ESP_ERROR_CHECK(esp_wifi_stop());
-    ESP_ERROR_CHECK(esp_wifi_deinit());
+    // ESP_ERROR_CHECK(esp_wifi_disconnect());
+    // ESP_ERROR_CHECK(esp_wifi_stop());
+    // ESP_ERROR_CHECK(esp_wifi_deinit());
 
     promiscuous_init();
     uint8_t channel = 1;
