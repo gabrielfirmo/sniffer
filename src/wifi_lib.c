@@ -2,6 +2,7 @@
 
 // const char mac_analysis[12] = {'2','8','c','2','1','f','e','a','4','2','4','d'};
 const char mac_analysis[13] = "28c21fea424d";
+// const char mac_analysis[13] = "9c28b3f40a01";
 
 //Informações sobre o país
 static wifi_country_t wifi_country = {.cc="BR", .schan=1, .nchan=13, .policy=WIFI_COUNTRY_POLICY_AUTO};
@@ -130,8 +131,8 @@ void wifi_sniffer_packet_handler(void* buff, wifi_promiscuous_pkt_type_t type)
 	wifi_ieee80211_packet_t *ipkt = (wifi_ieee80211_packet_t *)ppkt->payload;
 	wifi_ieee80211_mac_hdr_t *hdr = &ipkt->hdr;
 
-    // if (hdr->addr2[0]==0x28 && hdr->addr2[1]==0xc2)
-    if (compare_mac(hdr, mac_analysis))
+    if (hdr->addr2[0]==0x28 && hdr->addr2[1]==0xc2)
+    // if (compare_mac(hdr, mac_analysis))
         ESP_LOGI(TAG,"MAC:%x%x%x%x%x%x RSSI: %d", hdr->addr2[0],hdr->addr2[1],hdr->addr2[2],hdr->addr2[3],hdr->addr2[4],hdr->addr2[5],ppkt->rx_ctrl.rssi);
 
 
